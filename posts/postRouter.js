@@ -62,8 +62,19 @@ router.put('/:id', (req, res) =>{
 
 // custom middleware
 
-function validatePostId(req, res, next) {
+function validatePost(req, res, next) {
+const post = req.body;
 
+   if(post) {
+       if(post.text){
+           next()
+       } else{
+           res.status(400).json({ message: "missing required text field" })
+       }
+
+   } else{
+       res.status(400).json({ message: "missing post data" })
+   }
 };
 
 module.exports = router;
